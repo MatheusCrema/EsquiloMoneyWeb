@@ -18,8 +18,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: 'category', component: CategoryComponent },
-  { path: 'extrat', component: GridListComponent }
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: GridListComponent },
+  { path: 'category', component: CategoryComponent }
 ];
 
 

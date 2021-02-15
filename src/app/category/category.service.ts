@@ -5,7 +5,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
 import { Category } from 'src/app/category/category';
-import { CATEGORIES } from 'src/app/components/mock-class/mock-class';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,12 +17,12 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CategoryService {
-  categoriasUrl = "https://localhost:44313/api/categorias";
+  categoriesUrl = "https://localhost:44313/api/categories";
 
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<Category[]> {
-    //return of(CATEGORIES);
-    return this.http.get<Category[]>(this.categoriasUrl)
+
+    return this.http.get<Category[]>(this.categoriesUrl)
   }
 }

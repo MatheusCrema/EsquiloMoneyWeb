@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from './category';
 import { CategoryService } from 'src/app/category/category.service';
 
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -9,7 +11,7 @@ import { CategoryService } from 'src/app/category/category.service';
 })
 export class CategoryComponent implements OnInit {
 
-  categorias: Category[];
+  categories: Category[];
 
   constructor(private categoryService: CategoryService) {
   }
@@ -20,7 +22,7 @@ export class CategoryComponent implements OnInit {
 
   getCategories(): void {
     this.categoryService.getCategories()
-    .subscribe(categorias => this.categorias = categorias);
+    .subscribe(categories => this.categories = categories);
   }
 
 }
