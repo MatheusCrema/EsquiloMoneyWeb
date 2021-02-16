@@ -1,0 +1,34 @@
+<div class="grid-container">
+    <mat-grid-list cols="3" rowHeight="2:1">
+        <mat-list-item *ngFor="let category of categories">
+            <mat-grid-tile>
+                <!-- <app-card></app-card> -->
+
+                <mat-card class="example-card">
+                    <mat-card-header>
+                      <mat-card-title>{{category.name}}</mat-card-title>
+                      <mat-icon>{{category.iconUI}}</mat-icon>
+                      <!-- <mat-icon *ngIf="icon">{{category.iconUI}}</mat-icon> -->
+                      </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content style="border-top-width: 10px; margin-top: 15px;">
+                      <mat-chip-list>
+                        <mat-chip id="expense" color="warn" selected>R$ {{expenseValue}}</mat-chip>
+                        <mat-chip color="primary" selected>R$ 850.00</mat-chip>
+                      </mat-chip-list>
+                    </mat-card-content>
+                    <mat-divider>
+                    </mat-divider>
+                    <mat-card-actions>
+                      <div><input id="valor" type="text"/></div>
+                      <button mat-button (click)="onClickMe()">Details</button>
+                      <button mat-button>Edit</button>
+                    </mat-card-actions>
+                  </mat-card>
+
+
+
+            </mat-grid-tile>
+        </mat-list-item>
+    </mat-grid-list>
+</div>

@@ -1,0 +1,28 @@
+<h2>Categories</h2>
+
+<div style="margin-left: 15%; height: 70px;">
+  <button mat-fab color="primary" (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<mat-list>
+  <mat-divider></mat-divider>
+  <mat-list-item *ngFor="let category of categories">
+    <div mat-line>{{category.name}}</div>
+    <div mat-line>{{category.description}}</div>
+    <!-- <div mat-line> {{category.createdDT | date}} </div> -->
+    <!-- <div class="example-button-container"> -->
+    <div style="margin-right: 1%;">
+      <button mat-mini-fab color="disabled">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+    <div style="margin-right: 6%;">
+      <button mat-mini-fab color="disabled">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+  </mat-list-item>
+</mat-list>
