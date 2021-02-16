@@ -18,7 +18,7 @@ const httpOptions = {
 })
 export class HomeService {
 
-  categoriesUrl = "https://localhost:44313/api/categories?hierarchy=0";
+  categoriesUrl = "https://localhost:44313/api/categories?hierarchy=0&itemsPerPage=25";
 
   constructor(private http: HttpClient) { }
 
