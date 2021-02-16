@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CardComponent } from './components/card/card.component';
 import { CardExpenseComponent } from 'src/app/shared/card-expense/card-expense.component';
-import { CategoryComponent } from './category/category.component';
+import { CategoryComponent } from './core/category/category.component';
 import { ConfigComponent } from 'src/app/services/config/config.component';
 import { GridListComponent } from './components/grid-list/grid-list.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,10 +16,11 @@ import {
 } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './core/home/home.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: GridListComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'category', component: CategoryComponent }
 ];
 
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     CardComponent,
     CategoryComponent,
     ConfigComponent,
+    HomeComponent,
   ],
   imports: [
     RouterModule.forRoot(
