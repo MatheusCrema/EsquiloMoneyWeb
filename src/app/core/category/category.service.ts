@@ -17,7 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CategoryService {
-  categoriesUrl = "https://localhost:44313/api/categories";
+  categoriesUrl = "https://localhost:44313/api/categories?itemsPerPage=100";
 
   constructor(private http: HttpClient) { }
 

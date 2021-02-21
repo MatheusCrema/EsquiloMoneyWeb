@@ -1,18 +1,30 @@
 <h2>Categories</h2>
 
-<div style="margin-left: 15%; height: 70px;">
+
+<!-- <header class="mdc-top-app-bar"> -->
+  <div class="mdc-top-app-bar__row">
+
+  <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Favorite">favorite</button>
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search</button>
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">more_vert</button>
+    </section>
+  </div>
+<!-- </header> -->
+
+
+
+<!-- <div style="margin-left: 15%; height: 70px;">
   <button mat-fab color="primary" (click)="openDialog()">
     <mat-icon>add</mat-icon>
   </button>
-</div>
+</div> -->
 
 <mat-list>
   <mat-divider></mat-divider>
   <mat-list-item *ngFor="let category of categories">
     <div mat-line>{{category.name}}</div>
     <div mat-line>{{category.description}}</div>
-    <!-- <div mat-line> {{category.createdDT | date}} </div> -->
-    <!-- <div class="example-button-container"> -->
     <div style="margin-right: 1%;">
       <button mat-mini-fab color="disabled">
         <mat-icon>edit</mat-icon>

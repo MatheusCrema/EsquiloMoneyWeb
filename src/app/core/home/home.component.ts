@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from 'src/app/core/category/category';
+import { map } from 'rxjs/operators';
+import { Category, CategoryResult } from 'src/app/core/category/category';
 import { HomeService } from './home.service';
 
 @Component({
@@ -16,11 +17,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+    console.log("categories: " );
   }
 
   getCategories(): void {
     this.homeService.getCategories()
-    .subscribe(categories => this.categories = categories.items);
+    .subscribe(data => this.categories = data.items);
   }
+  //.subscribe((data: CategoryResult) => this.categories = data.items);   
+  //.subscribe(map(categories => categories.map(this.categories = categories.items)))
 
 }

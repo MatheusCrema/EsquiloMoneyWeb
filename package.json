@@ -24,6 +24,7 @@
     "@angular/router": "^10.1.4",
     "@material/card": "^0.43.0",
     "@material/list": "^7.0.0",
+    "@material/top-app-bar": "^10.0.0",
     "core-js": "^2.6.11",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.6.3",

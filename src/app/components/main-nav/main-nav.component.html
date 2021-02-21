@@ -3,8 +3,10 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="!(isHandset$ | async)">
     <mat-toolbar>
-      <mat-icon aria-hidden="false">home</mat-icon>
       EsquiloMoney
+      <a routerLink="/home">
+        <span class='myIcon'></span>
+      </a>
     </mat-toolbar>
 
     <mat-nav-list>

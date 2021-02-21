@@ -23,7 +23,6 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<CategoryResult> {
-
     return this.http.get<CategoryResult>(this.categoriesUrl)
   }
 }
