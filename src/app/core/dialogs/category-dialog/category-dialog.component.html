@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>New Category</h1>
+
+
+<form class="example-form">
+    <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input name="name" matInput [(ngModel)]="name">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>Description</mat-label>
+            <textarea name="description" matInput [(ngModel)]="description" placeholder="This Category..."></textarea>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>Hierarchy</mat-label>
+            <input name="hierarchy" matInput [(ngModel)]="hierarchy">
+        </mat-form-field>
+    </div>
+</form>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button (click)="createCategory()">Create</button>
+</div>
