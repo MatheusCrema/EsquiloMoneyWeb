@@ -1,28 +1,21 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Category } from '../../category/category';
-//import {MatFormFieldModule} from '@angular/material/form-field';
+import { Category, dataJarbas } from '../../category/category';
 
 @Component({
   selector: 'app-category-dialog',
   templateUrl: './category-dialog.component.html',
   styleUrls: ['./category-dialog.component.css']
 })
-export class CategoryDialogComponent {
 
-  name: string;
-  descritpion: string;
-  hierarchy: number;
-  
+export class CategoryDialogComponent {
   constructor(
+
     public dialogRef: MatDialogRef<CategoryDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Category) { }
-    // @Inject(MAT_DIALOG_DATA) public data: {name: string, description: string}) { }
+    @Inject(MAT_DIALOG_DATA) public category: Category) { }
 
   createCategory(): void {
-    console.log(" >>>>>>>>>>>>>>>>> " + this.name);
-    this.dialogRef.close();
+    this.dialogRef.close(this.category);
   }
-
 }
 

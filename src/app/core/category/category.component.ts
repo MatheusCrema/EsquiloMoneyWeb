@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { Category, CategoryResult } from './category';
 import { CategoryService } from 'src/app/core/category/category.service';
 //import {MatFormFieldModule} from '@angular/material/form-field';
@@ -10,11 +10,18 @@ import { CategoryDialogComponent } from '../dialogs/category-dialog/category-dia
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
+
 export class CategoryComponent implements OnInit {
 
-  categories: Category[];
+  name: string;
+  description: string;
+  hierarchy: number;
 
-  newCategory: Category;
+  newCategory : Category;
+
+  createdCategory : Category;
+
+  categories: Category[];
 
   constructor(private categoryService: CategoryService, public dialog: MatDialog) {
   }
@@ -32,17 +39,25 @@ export class CategoryComponent implements OnInit {
 
     const dialogRef = this.dialog.open(CategoryDialogComponent, {
       height: '450px',
-      width: '480px'
+      width: '480px',
+      data: { name: this.name, description: this.description, hierarchy: this.hierarchy }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-      console.log("result: " + result);
-      let a = result;
-      // this.newCategory.name = result.name;
-      // this.newCategory.description = result.description;
-      // this.newCategory.hierarchy = result.hierarchy;
-    });
 
+      this.newCategory = { 
+        name: result.name,
+        description: result.description,
+        hierarchy: result.hierarchy,
+        
+        categoryParentID: 0,
+        createdDT:  new Date()
+      };
+
+      var ret = this.categoryService.addCategory(this.newCategory).subscribe( result =>
+         this.createdCategory = result       
+        )
+
+    });
   }
 }

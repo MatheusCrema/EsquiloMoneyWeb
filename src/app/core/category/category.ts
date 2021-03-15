@@ -14,17 +14,24 @@ export interface CategoryBalance {
 
 
 export interface Category {
-    categoryID: number;
+    categoryID?: number;
     name: string;
     description: string;
-    iconUI: string;
     hierarchy: number;
-    createdDT: Date;
-    
-    categoryBalances: CategoryBalance[];
+    iconUI?: string;
+    createdDT?: Date;
+
+    categoryParentID?: number;    
+    categoryBalances?: CategoryBalance[];
 }
 
 export interface CategoryResult {
     totalItems: number;
     items: Category[];
 }
+
+export interface dataJarbas {
+    name: string;
+    description: string;
+    hierarchy: number;
+  }

@@ -9,7 +9,6 @@ import { Category, CategoryResult } from 'src/app/core/category/category';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
-    Authorization: 'my-auth-token'
   })
 };
 
@@ -23,6 +22,9 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<CategoryResult> {
-    return this.http.get<CategoryResult>(this.categoriesUrl)
+    var a;
+    var res =  this.http.get<CategoryResult>(this.categoriesUrl, { 'headers': httpOptions.headers }).pipe(data => a=data);
+    console.log("reeeeees: " + a );
+    return res;
   }
 }

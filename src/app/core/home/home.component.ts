@@ -17,14 +17,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
-    console.log("categories: " );
+    console.log("teeeeeeeeste: " + this.categories);
+
   }
 
   getCategories(): void {
     this.homeService.getCategories()
-    .subscribe(data => this.categories = data.items);
+      .subscribe(data => this.categories = data.items);
   }
-  //.subscribe((data: CategoryResult) => this.categories = data.items);   
-  //.subscribe(map(categories => categories.map(this.categories = categories.items)))
 
 }
