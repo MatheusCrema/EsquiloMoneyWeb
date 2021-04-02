@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
@@ -8,7 +8,7 @@ import { Category, CategoryResult } from 'src/app/core/category/category';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type': 'application/json',
   })
 };
 
@@ -22,9 +22,13 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<CategoryResult> {
-    var a;
-    var res =  this.http.get<CategoryResult>(this.categoriesUrl, { 'headers': httpOptions.headers }).pipe(data => a=data);
-    console.log("reeeeees: " + a );
-    return res;
+    //    var a;
+    //a =  this.http.get<CategoryResult>(this.categoriesUrl, { 'headers': httpOptions.headers });
+    // a = this.http.get<CategoryResult>(this.categoriesUrl);
+    // console.log("reeeeees: " + a);
+    // var res = a;
+    // return res;
+    return this.http.get<CategoryResult>(this.categoriesUrl);
+
   }
 }

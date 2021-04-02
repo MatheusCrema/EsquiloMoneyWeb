@@ -13,13 +13,15 @@ import { CategoryDialogComponent } from '../dialogs/category-dialog/category-dia
 
 export class CategoryComponent implements OnInit {
 
+  categoryID: number;
+
   name: string;
   description: string;
   hierarchy: number;
 
-  newCategory : Category;
+  newCategory: Category;
 
-  createdCategory : Category;
+  createdCategory: Category;
 
   categories: Category[];
 
@@ -28,11 +30,6 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
-  }
-
-  getCategories(): void {
-    this.categoryService.getCategories()
-      .subscribe(categories => this.categories = categories.items);
   }
 
   addCategory(): void {
@@ -45,19 +42,30 @@ export class CategoryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      this.newCategory = { 
+      this.newCategory = {
         name: result.name,
         description: result.description,
         hierarchy: result.hierarchy,
-        
+
         categoryParentID: 0,
-        createdDT:  new Date()
+        createdDT: new Date()
       };
 
-      var ret = this.categoryService.addCategory(this.newCategory).subscribe( result =>
-         this.createdCategory = result       
-        )
+      var ret = this.categoryService.addCategory(this.newCategory).subscribe(result =>
+        this.createdCategory = result
+      )
 
     });
   }
+
+  deleteCategory(categoryID: number): void {
+    this.categoryService.deleteCategory(categoryID).subscribe(data => console.log("returned data " + data));
+  }
+
+
+  getCategories(): void {
+    this.categoryService.getCategories()
+      .subscribe(categories => this.categories = categories.items);
+  }
+
 }

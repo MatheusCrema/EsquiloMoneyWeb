@@ -27,19 +27,34 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategories(): Observable<CategoryResult> {
-
-    return this.http.get<CategoryResult>(this.categoriesGet)
-  }
 
   addCategory(category: Category): Observable<any> {
 
     const headers = { 'content-type': 'application/json' }
     const body = JSON.stringify(category);
-    console.log("body " + body)
 
-    var resp =  this.http.post(this.categoriesURL, body, { 'headers': headers })
-    .pipe(
+    var resp = this.http.post(this.categoriesURL, body, { 'headers': headers })
+      .pipe(
+        catchError((err) => {
+          console.log('error caught in service')
+          console.error(err);
+
+          //Handle the error here
+
+          return throwError(err);    //Rethrow it back to component
+        })
+      );
+
+    return resp;
+  }
+
+  deleteCategory(categoryID: number): Observable<any> {
+
+    var url = this.categoriesURL.concat("/", categoryID.toString());
+
+    console.log("urrrrrrrrrl  " + url);
+
+    var resp = this.http.delete(url).pipe(
       catchError((err) => {
         console.log('error caught in service')
         console.error(err);
@@ -48,11 +63,13 @@ export class CategoryService {
 
         return throwError(err);    //Rethrow it back to component
       })
-    ); 
-    
-    console.log("response >>> " + resp)
-
+    );
+    console.log("deeeeeeeeeeelete service " + resp);
     return resp;
+  }
+  
+  getCategories(): Observable<CategoryResult> {
+    return this.http.get<CategoryResult>(this.categoriesGet);
   }
 
 }

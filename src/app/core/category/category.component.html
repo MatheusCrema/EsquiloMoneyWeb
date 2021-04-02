@@ -1,6 +1,5 @@
 <h2>Categories</h2>
 
-
 <!-- <header class="mdc-top-app-bar"> -->
 
 <div class="mdc-top-app-bar__row">
@@ -17,7 +16,6 @@
 </div>
 <!-- </header> -->
 
-
 <mat-list>
   <mat-divider></mat-divider>
   <mat-list-item *ngFor="let category of categories">
@@ -29,7 +27,7 @@
       </button>
     </div>
     <div style="margin-right: 6%;">
-      <button mat-mini-fab color="disabled">
+      <button mat-mini-fab color="disabled" (click)="deleteCategory(category.categoryID)">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
