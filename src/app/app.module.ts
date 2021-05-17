@@ -28,6 +28,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TestComponent } from './shared/test/test.component';
 
 
 const appRoutes: Routes = [
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     GridListComponent,
     HomeComponent,
     MainNavComponent,
+    TestComponent,
   ],
   imports: [
     RouterModule.forRoot(

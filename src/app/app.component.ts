@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-//import { MainNavComponent } from 'src/app/main-nav/main-nav.component';
+import { environment } from '../environments/environment.staging';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'esquilo-money';
+  env = environment;
 }

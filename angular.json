@@ -35,6 +35,22 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
               ],
               "optimization": true,
               "outputHashing": "all",
@@ -56,6 +72,9 @@
           "configurations": {
             "production": {
               "browserTarget": "esquilo-money:build:production"
+            },
+            "staging": {
+              "browserTarget": "esquilo-money:build:staging"
             }
           }
         },
