@@ -5,7 +5,7 @@ import { CategoryComponent } from "./category.component"
 export interface CategoryBalance {
     categoryBalanceID: number;
     period: string;
-    referenceDate: Date;
+    DateReference: Date;
     totalExpense: bigint;
     plannedExpense: bigint;
     createdDT: Date;

@@ -22,7 +22,7 @@
     <div mat-line>{{category.name}}</div>
     <div mat-line>{{category.description}}</div>
     <div style="margin-right: 1%;">
-      <button mat-mini-fab color="disabled">
+      <button mat-mini-fab color="disabled" (click)="editCategory(category)">
         <mat-icon>edit</mat-icon>
       </button>
     </div>

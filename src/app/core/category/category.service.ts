@@ -27,12 +27,6 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {}
 
-  testCall(): Observable<any> {
-    return this.http
-      .get<any>("http://localhost:3000/profile")
-      .pipe(retry(1), catchError(this.errorHandler));
-  }
-
   addCategory(category: Category): Observable<any> {
     const headers = { "content-type": "application/json" };
     const body = JSON.stringify(category);
@@ -53,10 +47,37 @@ export class CategoryService {
     return resp;
   }
 
+  editCategory(category: Category): Observable<any> {
+    const headers = { "content-type": "application/json" };
+    const body = JSON.stringify(category);
+
+    console.log(">>>> editCategoryService - category name: " + category.name);
+    console.log(">>>> editCategoryService - category id: " + category.categoryID?.toString());
+
+    var resp = this.http
+      .patch(this.categoriesURL.concat("/", category.categoryID?.toString() ), body, { headers: headers })
+      .pipe(
+        catchError((err) => {
+          console.log("error caught in service");
+          console.error(err);
+
+          //Handle the error here
+
+          return throwError(err); //Rethrow it back to component
+        })
+      );
+
+   console.log(">>>> editCategoryService - resp: " + resp);
+
+
+    return resp;
+  }
+
+
   deleteCategory(categoryID: number): Observable<any> {
     var url = this.categoriesURL.concat("/", categoryID.toString());
 
-    console.log("urrrrrrrrrl  " + url);
+    console.log(">>>>>> delete URL: " + url);
 
     var resp = this.http.delete(url).pipe(
       catchError((err) => {
@@ -68,14 +89,12 @@ export class CategoryService {
         return throwError(err); //Rethrow it back to component
       })
     );
-    console.log("deeeeeeeeeeelete service " + resp);
+    console.log(">>>>> delete service response:  " + resp);
     return resp;
   }
 
   getCategories(): Observable<any> {
-    console.log(">>>>>>>>>>>>>>>>>>> categoriesGet: " + this.categoriesGet);
     return this.http.get<any>(this.categoriesGet);
-    //return this.http.get<any>(this.categoriesGet);
   }
 
   // Error Handling
@@ -92,5 +111,11 @@ export class CategoryService {
 
     console.log("><><><><><><><><><>< errorMessage:" + errorMessage);
     return throwError(errorMessage);
+  }
+
+  testCall(): Observable<any> {
+    return this.http
+      .get<any>("http://localhost:3000/profile")
+      .pipe(retry(1), catchError(this.errorHandler));
   }
 }

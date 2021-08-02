@@ -24,18 +24,18 @@ export class MainNavComponent {
     var d = new Date();
     var mesLista = new Array();
     
-    mesLista[0] = 'Janeiro';
-    mesLista[1] = 'Fevereiro';
-    mesLista[2] = 'Março';
-    mesLista[3] = 'Abril';
-    mesLista[4] = 'Maio';
-    mesLista[5] = 'Junho';
-    mesLista[6] = 'Julho';
-    mesLista[7] = 'Agosto';
-    mesLista[8] = 'Setembro';
-    mesLista[9] = 'Outubro';
-    mesLista[10] = 'Novembro';
-    mesLista[11] = 'Dezembro';
+    mesLista[0] = 'January';
+    mesLista[1] = 'February';
+    mesLista[2] = 'March';
+    mesLista[3] = 'April';
+    mesLista[4] = 'May';
+    mesLista[5] = 'June';
+    mesLista[6] = 'July';
+    mesLista[7] = 'August';
+    mesLista[8] = 'September';
+    mesLista[9] = 'October';
+    mesLista[10] = 'November';
+    mesLista[11] = 'December';
     
     var mes = mesLista[d.getMonth()];
     
