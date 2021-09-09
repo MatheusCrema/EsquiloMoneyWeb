@@ -57,7 +57,7 @@ export class CategoryComponent implements OnInit {
         description: result.description,
         hierarchy: result.hierarchy,
 
-        categoryParentID: 0,
+        categoryParentID: null,
         createdDT: new Date(),
       };
 

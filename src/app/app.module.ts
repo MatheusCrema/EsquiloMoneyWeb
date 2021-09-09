@@ -29,18 +29,21 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TestComponent } from './shared/test/test.component';
+import { AccountComponent } from './core/account/account.component';
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'category', component: CategoryComponent }
+  { path: 'category', component: CategoryComponent },
+  { path: 'account', component: AccountComponent }
 ];
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AccountComponent,
     CardComponent,
     CardExpenseComponent,
     CategoryComponent,
@@ -50,6 +53,7 @@ const appRoutes: Routes = [
     HomeComponent,
     MainNavComponent,
     TestComponent,
+    AccountComponent,
   ],
   imports: [
     RouterModule.forRoot(
