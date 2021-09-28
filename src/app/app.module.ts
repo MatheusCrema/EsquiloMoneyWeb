@@ -29,21 +29,21 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TestComponent } from './shared/test/test.component';
-import { AccountComponent } from './core/account/account.component';
+import { ProfileComponent } from './core/profile/profile.component';
+import { ProfileCardComponent } from './core/profile/profile-card/profile-card.component';
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'category', component: CategoryComponent },
-  { path: 'account', component: AccountComponent }
+  { path: 'profile', component: ProfileComponent }
 ];
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent,
     CardComponent,
     CardExpenseComponent,
     CategoryComponent,
@@ -52,8 +52,9 @@ const appRoutes: Routes = [
     GridListComponent,
     HomeComponent,
     MainNavComponent,
+    ProfileComponent,
+    ProfileCardComponent,
     TestComponent,
-    AccountComponent,
   ],
   imports: [
     RouterModule.forRoot(

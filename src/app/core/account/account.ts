@@ -1,4 +1,4 @@
-import { AccountComponent } from "./account.component"
+import { ProfileComponent } from "../profile/profile.component"
 
 
 export interface Account {
@@ -6,8 +6,8 @@ export interface Account {
     number: string;
     expireDT: Date;
     createdDT: Date;
-    identityID: number;   
-    institutionID: number;   
+    //identityID: number;   
+    //institutionID: number;   
 }
 
 

@@ -77,13 +77,9 @@ export class CategoryService {
   deleteCategory(categoryID: number): Observable<any> {
     var url = this.categoriesURL.concat("/", categoryID.toString());
 
-    console.log(">>>>>> delete URL: " + url);
-
     var resp = this.http.delete(url).pipe(
       catchError((err) => {
-        console.log("error caught in service");
-        console.error(err);
-
+    
         //Handle the error here
 
         return throwError(err); //Rethrow it back to component

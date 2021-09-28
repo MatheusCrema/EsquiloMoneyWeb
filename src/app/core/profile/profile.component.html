@@ -1,0 +1,51 @@
+<h2>Profiles</h2>
+
+<div class="grid-container">
+  <mat-grid-list cols="3" rowHeight="5:4">
+    <mat-grid-tile *ngFor="let identity of identities">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title
+            >{{ identity.firstName }} {{ identity.lastName }}</mat-card-title
+          >
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item>
+              <mat-icon matListIcon>email</mat-icon>
+              <p matLine>{{ identity.email }}</p>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon matListIcon>phone</mat-icon>
+              <p matLine>{{ identity.phone }}</p>
+            </mat-list-item>
+          </mat-list>
+
+          <mat-list>
+            <mat-list-item *ngFor="let account of identity.accounts">
+              <p matLine>{{account.number}}</p>
+              <p matLine>{{account.expireDT}}</p>
+              <mat-icon matListIcon>credit_card</mat-icon>
+              <mat-icon matListIcon>account_balance_wallet</mat-icon>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+          <button mat-button (click)="editIdentity(identity)">Edit</button>
+          <button mat-button (click)="deleteIdentity(identity.identityID)">Delete</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="example-card">
+        <button mat-icon-button aria-label="New" style="font-size: large">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
