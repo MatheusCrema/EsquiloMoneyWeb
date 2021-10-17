@@ -54,8 +54,8 @@ const appRoutes: Routes = [
     MainNavComponent,
     ProfileComponent,
     ProfileCardComponent,
-    TestComponent,
-  ],
+    TestComponent
+    ],
   imports: [
     RouterModule.forRoot(
       appRoutes,

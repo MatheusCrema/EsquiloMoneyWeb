@@ -1,1 +1,35 @@
-<p>profile-card works!</p>
+<h2 mat-dialog-title>New profile</h2>
+
+
+
+<form class="example-form">
+    <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>First Name</mat-label>
+            <input name="firstName" matInput [(ngModel)]="identity.firstName">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>Last Name</mat-label>
+            <input name="lastName" matInput [(ngModel)]="identity.lastName">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input name="email" matInput [(ngModel)]="identity.email">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>Phone</mat-label>
+            <input name="phone" matInput [(ngModel)]="identity.phone">
+        </mat-form-field>
+    </div>
+</form>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-button (click)="addProfile()">Create</button>
+</div>

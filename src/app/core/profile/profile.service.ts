@@ -7,6 +7,7 @@ import { Account, AccountResult } from "src/app/core/account/account";
 import { catchError, retry } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { environment } from "src/environments/environment.staging";
+import { Identity } from "../identity/identity";
 //import { error } from "selenium-webdriver";
 
 const httpOptions = {
@@ -28,6 +29,26 @@ export class ProfileService {
     return this.http.get<any>(this.identitiesURL);
   }
 
+  addIdentity(identity: Identity): Observable<any> {
+    const headers = { "content-type": "application/json" };
+    const body = JSON.stringify(identity);
+
+    var resp = this.http
+      .post(this.identitiesURL, body, { headers: headers })
+      .pipe(
+        catchError((err) => {
+          console.log("error caught in service");
+          console.error(err);
+
+          //Handle the error here
+
+          return throwError(err); //Rethrow it back to component
+        })
+      );
+
+    return resp;
+  }
+
   deleteIdentity(identityID: number): Observable<any> {
     var url = this.identitiesURL.concat("/", identityID.toString());
     
@@ -41,7 +62,11 @@ export class ProfileService {
         return throwError(err); //Rethrow it back to component
       })
     );
-    console.log(">>>>> delete service response:  " + resp);
+
+    //var resp = this.http.delete(url).subscribe();
+
+
+//    console.log(">>>>> delete service response:  " + resp);
     return resp;
   }
 }

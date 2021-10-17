@@ -2,12 +2,13 @@ import { Component, OnInit, Inject, Injectable } from "@angular/core";
 import { Category, CategoryResult } from "./category";
 import { CategoryService } from "src/app/core/category/category.service";
 //import {MatFormFieldModule} from '@angular/material/form-field';
+import { CategoryDialogComponent } from "../dialogs/category-dialog/category-dialog.component";
+
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
-import { CategoryDialogComponent } from "../dialogs/category-dialog/category-dialog.component";
 import { timer } from "rxjs";
 
 @Component({
