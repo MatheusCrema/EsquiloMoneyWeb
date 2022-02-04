@@ -1,7 +1,9 @@
 import { Component, OnInit, Inject, Injectable } from "@angular/core";
-import { Identity } from "../identity/identity";
+import { Identity, IdentityResult } from "../identity/identity";
 import { ProfileService } from "src/app/core/profile/profile.service";
 import { ProfileCardComponent } from "./profile-card/profile-card.component";
+import { Observable, BehaviorSubject } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
 import {
   MatDialog,
@@ -15,7 +17,11 @@ import {
   styleUrls: ["./profile.component.css"],
 })
 export class ProfileComponent implements OnInit {
+  refreshIdentities$ = new BehaviorSubject<boolean>(true);
+  IdentityResult$: Observable<IdentityResult>;
+
   identities: Identity[];
+
   itemsCount: number;
 
   firstName: string;
@@ -24,7 +30,7 @@ export class ProfileComponent implements OnInit {
   phone: string;
 
   identity: Identity;
-  createdIdentity: Identity
+  createdIdentity: Identity;
 
   constructor(
     private profileService: ProfileService,
@@ -33,6 +39,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdentities();
+
+    // this.IdentityResult$ = this.refreshIdentities$.pipe(
+    //   switchMap((_) => this.profileService.getIdentities())
+    // );
+    // console.log(" >>>>>>>> this.IdentityResult$: " + this.IdentityResult$);
+    
   }
 
   addProfile(): void {
@@ -53,23 +65,32 @@ export class ProfileComponent implements OnInit {
         lastName: result.lastName,
         email: result.email,
         phone: result.phone,
-        createdDT: new Date(),       
+        createdDT: new Date(),
       };
 
       var ret = this.profileService
         .addIdentity(this.identity)
         .subscribe((result) => (this.createdIdentity = result));
-
     });
+
+    this.refreshIdentities$.next(true);
   }
 
   getIdentities(): void {
-    this.profileService.getIdentities().subscribe((data) => {
-      this.identities = data.items;
-    });
+    this.profileService.getIdentities().subscribe((identities) => (this.identities = identities.items));
+        
+    //this.profileService.getIdentities().subscribe();
+    
+    // this.profileService.getIdentities().subscribe((data) => {
+    //   this.identities = data.items;
+    // });
   }
 
   deleteIdentity(identityID: number): void {
-    this.profileService.deleteIdentity(identityID);
+    var isDeleted = false;
+    isDeleted = this.profileService.deleteIdentity(identityID);
+    console.log(">>>>>>>>>>>>>>>>> isDeleted: " + isDeleted);
+    this.ngOnInit();
+    //if (isDeleted) this.getIdentities(); Not working (isDeleted is coming false - even if condition is removed still doesnt work)
   }
 }

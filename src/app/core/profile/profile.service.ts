@@ -8,6 +8,7 @@ import { catchError, retry } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { environment } from "src/environments/environment.staging";
 import { Identity } from "../identity/identity";
+import { errorMonitor } from "events";
 //import { error } from "selenium-webdriver";
 
 const httpOptions = {
@@ -29,6 +30,11 @@ export class ProfileService {
     return this.http.get<any>(this.identitiesURL);
   }
 
+  // getIdentitiesitems(): Observable<any> {
+    
+  //   return this.http.get<any>(this.identitiesURL);
+  // }
+
   addIdentity(identity: Identity): Observable<any> {
     const headers = { "content-type": "application/json" };
     const body = JSON.stringify(identity);
@@ -49,24 +55,24 @@ export class ProfileService {
     return resp;
   }
 
-  deleteIdentity(identityID: number): Observable<any> {
+  deleteIdentity(identityID: number): boolean {
     var url = this.identitiesURL.concat("/", identityID.toString());
-    
+    var res = false;
+
     console.log(">>>>>>>>>>>>> url :" + url);
-    
-    var resp = this.http.delete(url).pipe(
-      catchError((err) => {
-        console.log(">>>>>>>>>>> err: " + err);
-        //Handle the error here
 
-        return throwError(err); //Rethrow it back to component
-      })
+    this.http.delete(url).subscribe(
+      (result) => {
+        console.log(">>>>> Item deleted.");
+        res = true;
+      },
+      (error) => {
+        if (error.status == 404) {
+          console.log(">>>>> Item not found.");
+        }
+      }
     );
-
-    //var resp = this.http.delete(url).subscribe();
-
-
-//    console.log(">>>>> delete service response:  " + resp);
-    return resp;
+    console.log("))))))))))))))))))))))) res: " + res);
+    return res;
   }
 }

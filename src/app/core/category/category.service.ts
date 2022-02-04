@@ -21,7 +21,7 @@ const httpOptions = {
 })
 export class CategoryService {
   categoriesURL = environment.apiUrl + "categories";
-  categoriesGet = environment.apiUrl + "categories?itemsPerPage=100";
+  categoriesGet = environment.apiUrl + "categories?itemsPerPage=30&SortBy=name";
 
   categoryResult: CategoryResult;
 
