@@ -1,33 +1,55 @@
 <h2>Categories</h2>
 
-<!-- <header class="mdc-top-app-bar"> -->
+<mat-divider></mat-divider>
+<section>
+  <div class="example-button-row">
+    <div class="example-flex-container">
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Search</mat-label>
+        <input matInput type="search" [(ngModel)]="value" />
+        <button
+          *ngIf="value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="value = ''"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
 
-<div class="mdc-top-app-bar__row">
-  <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
-      <span class="mdc-text-field__ripple"></span>
-      <input class="mdc-text-field__input" type="text" placeholder="Search" aria-label="Label" style="height:15px; padding-top: 12px;">
-      <span class="mdc-line-ripple"></span>
-    </label>
-    <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search</button>
-    <button (click)="addCategory()" class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Add">add</button>
-    <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">more_vert</button>
-  </section>
-</div>
+      <button mat-icon-button color="primary" aria-label="Add new category">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Example icon button with a menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- </header> -->
 
 <mat-list>
   <mat-divider></mat-divider>
   <mat-list-item *ngFor="let category of categories">
-    <div mat-line>{{category.name}}</div>
-    <div mat-line>{{category.description}}</div>
-    <div style="margin-right: 1%;">
+    <div mat-line>{{ category.name }}</div>
+    <div mat-line>{{ category.description }}</div>
+    <div style="margin-right: 1%">
       <button mat-mini-fab color="disabled" (click)="editCategory(category)">
         <mat-icon>edit</mat-icon>
       </button>
     </div>
-    <div style="margin-right: 6%;">
-      <button mat-mini-fab color="disabled" (click)="deleteCategory(category.categoryID)">
+    <div style="margin-right: 6%">
+      <button
+        mat-mini-fab
+        color="disabled"
+        (click)="deleteCategory(category.categoryID)"
+      >
         <mat-icon>delete</mat-icon>
       </button>
     </div>

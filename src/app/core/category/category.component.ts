@@ -4,6 +4,8 @@ import { CategoryService } from "src/app/core/category/category.service";
 //import {MatFormFieldModule} from '@angular/material/form-field';
 import { CategoryDialogComponent } from "../dialogs/category-dialog/category-dialog.component";
 
+import { FormControl } from '@angular/forms';
+
 import {
   MatDialog,
   MatDialogRef,
@@ -16,6 +18,7 @@ import { timer } from "rxjs";
   templateUrl: "./category.component.html",
   styleUrls: ["./category.component.css"],
 })
+
 export class CategoryComponent implements OnInit {
   categoryID: number;
 
@@ -30,6 +33,10 @@ export class CategoryComponent implements OnInit {
   createdCategory: Category;
 
   categories: Category[];
+
+  search = new FormControl('');
+  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  // filteredOptions: Observable<User[]>;
 
   constructor(
     private categoryService: CategoryService,
@@ -128,4 +135,8 @@ export class CategoryComponent implements OnInit {
   //     }
   //   );
   // }
+}
+
+export interface User {
+  name: string;
 }

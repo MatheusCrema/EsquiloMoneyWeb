@@ -27,6 +27,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { TestComponent } from './shared/test/test.component';
 import { ProfileComponent } from './core/profile/profile.component';
@@ -78,6 +79,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatToolbarModule,
     MatSidenavModule,
+    ReactiveFormsModule
   ],
 
   exports: [
