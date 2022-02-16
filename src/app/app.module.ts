@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MainNavComponent } from 'src/app/components/main-nav/main-nav.component';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     LayoutModule,
 
+    MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatChipsModule,

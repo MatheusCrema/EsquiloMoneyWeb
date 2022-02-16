@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject, Injectable } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+
 import { Category, CategoryResult } from "./category";
 import { CategoryService } from "src/app/core/category/category.service";
 //import {MatFormFieldModule} from '@angular/material/form-field';
 import { CategoryDialogComponent } from "../dialogs/category-dialog/category-dialog.component";
-
-import { FormControl } from '@angular/forms';
 
 import {
   MatDialog,
@@ -18,33 +18,61 @@ import { timer } from "rxjs";
   templateUrl: "./category.component.html",
   styleUrls: ["./category.component.css"],
 })
-
 export class CategoryComponent implements OnInit {
   categoryID: number;
-
   name: string;
   description: string;
   hierarchy: number;
 
   category: Category;
-
   newCategory: Category;
-
   createdCategory: Category;
 
+  fullCategoriesList: Category[];
   categories: Category[];
+  filteredCategories: Category[];
 
-  search = new FormControl('');
-  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
-  // filteredOptions: Observable<User[]>;
+  search = new FormControl("");
+  searchOptions: string[];
+  searchOptionsFull: string[];
+
+  formGroup: FormGroup;
 
   constructor(
     private categoryService: CategoryService,
+    private fb: FormBuilder,
     public dialog: MatDialog
   ) {}
 
   ngOnInit() {
+    this.initForm();
     this.getCategories();
+    //this.searchCategories();
+  }
+
+  initForm() {
+    this.formGroup = this.fb.group({
+      category: [""],
+    });
+    this.formGroup.get("category").valueChanges.subscribe((response) => {
+      this.filteredOptions(response);
+
+      if (!!response) {
+        this.categories = this.fullCategoriesList.filter((category) => {
+          return (
+            category.name.toLowerCase().indexOf(response.toLowerCase()) > -1
+          );
+        });
+      } else {
+        this.categories = this.fullCategoriesList;
+      }
+    });
+  }
+
+  filteredOptions(enteredData) {
+    this.searchOptions = this.searchOptionsFull.filter((item) => {
+      return item.toLowerCase().indexOf(enteredData.toLowerCase()) > -1;
+    });
   }
 
   addCategory(): void {
@@ -117,23 +145,23 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService
-      .getCategories()
-      .subscribe((categories) => (this.categories = categories.items));
+    this.categoryService.getCategories().subscribe((categories) => {
+      this.categories = categories.items;
+      this.fullCategoriesList = categories.items;
+
+      this.searchOptionsFull = categories.items.map(item => item["name"]);
+    });
   }
 
-  // test: string;
-  // test2: any;
-  // testService(): void {
-  //   //this.categoryService.testCall().subscribe(data => {this.test = data; console.log("VAAAAAAAI: " + data); return data;} );
-  //   this.categoryService.testCall().subscribe(
-  //     (data) => {
-  //       this.test2 = data;
-  //     },
-  //     (error) => {
-  //       console.log("errorOROROOOOOOOOOOOOOOOR: ", error);
-  //     }
-  //   );
+  // searchCategories(): void {
+  //   this.categoryService
+  //     .getCategories()
+  //     .subscribe(
+  //       (searchOptions) =>
+  //         (this.searchOptions = searchOptions.items.map(
+  //           (category) => category["name"]
+  //         ))
+  //     );
   // }
 }
 

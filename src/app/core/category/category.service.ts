@@ -4,7 +4,7 @@ import { Observable, of } from "rxjs";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 
 import { Category, CategoryResult } from "src/app/core/category/category";
-import { catchError, retry } from "rxjs/operators";
+import { catchError, map, pluck, retry } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { environment } from "src/environments/environment.staging";
 //import { error } from "selenium-webdriver";
@@ -92,6 +92,14 @@ export class CategoryService {
   getCategories(): Observable<any> {
     return this.http.get<any>(this.categoriesGet);
   }
+
+  getSearchOptions() {
+    return this.http.get(this.categoriesGet)
+      // .pipe(
+      //  map(response => response.)
+      // )    
+  }
+
 
   // Error Handling
   errorHandler(error) {

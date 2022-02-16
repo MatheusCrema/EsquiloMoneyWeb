@@ -4,19 +4,26 @@
 <section>
   <div class="example-button-row">
     <div class="example-flex-container">
-      <mat-form-field class="example-form-field" appearance="fill">
-        <mat-label>Search</mat-label>
-        <input matInput type="search" [(ngModel)]="value" />
-        <button
-          *ngIf="value"
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="value = ''"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+      <form [formGroup]="formGroup">
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>Search</mat-label>
+          <input formControlName="category" matInput type="search" [matAutocomplete]="auto" />
+          <mat-autocomplete #auto="matAutocomplete">
+            <button
+              *ngIf="value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="value = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-option *ngFor="let item of searchOptions" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
 
       <button mat-icon-button color="primary" aria-label="Add new category">
         <mat-icon>add</mat-icon>
