@@ -63,3 +63,11 @@
     <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
   </mat-list-item>
 </mat-list>
+
+<mat-paginator  [length]="length"
+                [pageIndex]="pageIndex"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="pageEvent = getCategoriesPerPage($event)"
+                aria-label="Select page">
+</mat-paginator>

@@ -20,7 +20,7 @@ const httpOptions = {
   providedIn: "root",
 })
 export class CategoryService {
-  categoriesURL = environment.apiUrl + "categories";
+  categoriesURL = environment.apiUrl + "categories?";
   categoriesGet = environment.apiUrl + "categories?itemsPerPage=30&SortBy=name";
 
   categoryResult: CategoryResult;
@@ -52,10 +52,17 @@ export class CategoryService {
     const body = JSON.stringify(category);
 
     console.log(">>>> editCategoryService - category name: " + category.name);
-    console.log(">>>> editCategoryService - category id: " + category.categoryID?.toString());
+    console.log(
+      ">>>> editCategoryService - category id: " +
+        category.categoryID?.toString()
+    );
 
     var resp = this.http
-      .patch(this.categoriesURL.concat("/", category.categoryID?.toString() ), body, { headers: headers })
+      .patch(
+        this.categoriesURL.concat("/", category.categoryID?.toString()),
+        body,
+        { headers: headers }
+      )
       .pipe(
         catchError((err) => {
           console.log("error caught in service");
@@ -67,19 +74,16 @@ export class CategoryService {
         })
       );
 
-   console.log(">>>> editCategoryService - resp: " + resp);
-
+    console.log(">>>> editCategoryService - resp: " + resp);
 
     return resp;
   }
-
 
   deleteCategory(categoryID: number): Observable<any> {
     var url = this.categoriesURL.concat("/", categoryID.toString());
 
     var resp = this.http.delete(url).pipe(
       catchError((err) => {
-    
         //Handle the error here
 
         return throwError(err); //Rethrow it back to component
@@ -89,17 +93,29 @@ export class CategoryService {
     return resp;
   }
 
-  getCategories(): Observable<any> {
-    return this.http.get<any>(this.categoriesGet);
-  }
+  getCategories(
+    sort: string,
+    itemsPerPage?: number,
+    page?: number
+  ): Observable<any> {
+    if (itemsPerPage || page || sort) {
+      if (itemsPerPage) {
+        this.categoriesURL += "itemsPerPage=" + itemsPerPage;
+      }
 
-  getSearchOptions() {
-    return this.http.get(this.categoriesGet)
-      // .pipe(
-      //  map(response => response.)
-      // )    
-  }
+      if (page) {
+        this.categoriesURL += "&page=" + page;
+      }
 
+      if (sort) {
+        this.categoriesURL += "&sort=" + sort;
+      }
+    } else {
+      this.categoriesURL = this.categoriesGet;
+    }
+
+    return this.http.get<any>(this.categoriesURL);
+  }
 
   // Error Handling
   errorHandler(error) {

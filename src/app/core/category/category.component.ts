@@ -1,10 +1,21 @@
-import { Component, OnInit, Inject, Injectable } from "@angular/core";
+import { merge, of } from "rxjs";
+import { startWith, switchMap } from "rxjs/operators";
+
+import {
+  Component,
+  OnInit,
+  Inject,
+  Injectable,
+  ViewChild,
+} from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
 import { Category, CategoryResult } from "./category";
 import { CategoryService } from "src/app/core/category/category.service";
-//import {MatFormFieldModule} from '@angular/material/form-field';
 import { CategoryDialogComponent } from "../dialogs/category-dialog/category-dialog.component";
+//import {MatFormFieldModule} from '@angular/material/form-field';
+
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 
 import {
   MatDialog,
@@ -38,16 +49,27 @@ export class CategoryComponent implements OnInit {
 
   formGroup: FormGroup;
 
+  //Paginator
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  pageEvent: PageEvent;
+  datasource: null;
+  pageIndex: number;
+  pageSize: number;
+  length: number;
+
   constructor(
     private categoryService: CategoryService,
     private fb: FormBuilder,
     public dialog: MatDialog
-  ) {}
+  ) {
+    pageIndex: 1;
+    pageSize: 30;
+    }
 
   ngOnInit() {
     this.initForm();
     this.getCategories();
-    //this.searchCategories();
   }
 
   initForm() {
@@ -145,24 +167,35 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe((categories) => {
+    this.categoryService.getCategories("name", 30, 1).subscribe((categories) => {
       this.categories = categories.items;
       this.fullCategoriesList = categories.items;
 
-      this.searchOptionsFull = categories.items.map(item => item["name"]);
+      this.searchOptionsFull = categories.items.map((item) => item["name"]);
+
+      this.length = categories.totalItems;
     });
   }
 
-  // searchCategories(): void {
-  //   this.categoryService
-  //     .getCategories()
-  //     .subscribe(
-  //       (searchOptions) =>
-  //         (this.searchOptions = searchOptions.items.map(
-  //           (category) => category["name"]
-  //         ))
-  //     );
-  // }
+   getCategoriesPerPage(event?: PageEvent) {
+    this.categoryService.getCategories("name", event.pageSize, event.pageIndex).subscribe(
+      (response) => {      
+        
+        if (response.error) {
+          // handle error
+        } else {
+          this.categories = response.items;
+          this.pageIndex = event.pageIndex;
+          this.pageSize = event.pageSize;
+          this.length = response.totalItems;
+        }
+      },
+      (error) => {
+        // handle error
+      }
+    );
+    return event;
+  }
 }
 
 export interface User {
