@@ -39,9 +39,11 @@ export class CategoryComponent implements OnInit {
   newCategory: Category;
   createdCategory: Category;
 
-  fullCategoriesList: Category[];
   categories: Category[];
+  
+  fullCategoriesList: Category[];
   filteredCategories: Category[];
+  inPageCategories: Category[];
 
   search = new FormControl("");
   searchOptions: string[];
@@ -62,10 +64,7 @@ export class CategoryComponent implements OnInit {
     private categoryService: CategoryService,
     private fb: FormBuilder,
     public dialog: MatDialog
-  ) {
-    pageIndex: 1;
-    pageSize: 30;
-    }
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -86,7 +85,7 @@ export class CategoryComponent implements OnInit {
           );
         });
       } else {
-        this.categories = this.fullCategoriesList;
+        this.categories = this.inPageCategories;
       }
     });
   }
@@ -167,33 +166,41 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getCategories("name", 30, 1).subscribe((categories) => {
-      this.categories = categories.items;
-      this.fullCategoriesList = categories.items;
+    this.categoryService
+      .getCategories("name", 30, 1)
+      .subscribe((categories) => {
+        this.categories = categories.items;
+        this.inPageCategories = this.categories;
+        
+        this.fullCategoriesList = categories.items;
 
-      this.searchOptionsFull = categories.items.map((item) => item["name"]);
+        this.searchOptionsFull = categories.items.map((item) => item["name"]);
 
-      this.length = categories.totalItems;
-    });
+        this.length = categories.totalItems;
+      });
   }
 
-   getCategoriesPerPage(event?: PageEvent) {
-    this.categoryService.getCategories("name", event.pageSize, event.pageIndex).subscribe(
-      (response) => {      
-        
-        if (response.error) {
+  getCategoriesPerPage(event?: PageEvent) {
+    
+    this.categoryService
+      .getCategories("name", event.pageSize, event.pageIndex + 1)
+      .subscribe(
+        (response) => {
+          if (response.error) {
+            // handle error
+          } else {
+            this.categories = response.items;
+            this.inPageCategories = response.items;
+            
+            //this.pageIndex = event.pageIndex;
+            this.pageSize = event.pageSize;
+            this.length = response.totalItems;
+          }
+        },
+        (error) => {
           // handle error
-        } else {
-          this.categories = response.items;
-          this.pageIndex = event.pageIndex;
-          this.pageSize = event.pageSize;
-          this.length = response.totalItems;
         }
-      },
-      (error) => {
-        // handle error
-      }
-    );
+      );
     return event;
   }
 }

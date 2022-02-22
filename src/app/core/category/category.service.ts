@@ -20,6 +20,7 @@ const httpOptions = {
   providedIn: "root",
 })
 export class CategoryService {
+  categoriesURLBase = environment.apiUrl + "categories?";
   categoriesURL = environment.apiUrl + "categories?";
   categoriesGet = environment.apiUrl + "categories?itemsPerPage=30&SortBy=name";
 
@@ -98,21 +99,35 @@ export class CategoryService {
     itemsPerPage?: number,
     page?: number
   ): Observable<any> {
+    
+    console.log("======================= sort: ", sort);
+    console.log("======================= itemsPerPage: ", itemsPerPage);
+    console.log("======================= page: ", page);
+
+    this.categoriesURL = this.categoriesURLBase;
+
     if (itemsPerPage || page || sort) {
       if (itemsPerPage) {
         this.categoriesURL += "itemsPerPage=" + itemsPerPage;
+        console.log("======================= if (itemsPerPage): ", this.categoriesURL);
       }
 
       if (page) {
         this.categoriesURL += "&page=" + page;
+        console.log("======================= if (page): ", this.categoriesURL);
       }
 
       if (sort) {
         this.categoriesURL += "&sort=" + sort;
+        console.log("======================= if (sort): ", this.categoriesURL);
       }
     } else {
       this.categoriesURL = this.categoriesGet;
+      console.log("======================= if (else): ", this.categoriesURL);
     }
+
+    console.log("======================= this.categoriesURL: ", this.categoriesURL);
+
 
     return this.http.get<any>(this.categoriesURL);
   }

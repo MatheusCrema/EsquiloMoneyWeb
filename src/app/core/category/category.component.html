@@ -5,7 +5,12 @@
   <div class="example-button-row">
     <div class="example-flex-container">
       <form [formGroup]="formGroup">
-        <mat-form-field class="example-form-field" appearance="fill">
+        <mat-form-field appearance="fill">
+          <mat-label>Search</mat-label>
+          <input formControlName="category" matInput />
+        </mat-form-field>
+
+        <!-- <mat-form-field class="example-form-field" appearance="fill">
           <mat-label>Search</mat-label>
           <input formControlName="category" matInput type="search" [matAutocomplete]="auto" />
           <mat-autocomplete #auto="matAutocomplete">
@@ -22,19 +27,19 @@
               {{ item }}
             </mat-option>
           </mat-autocomplete>
-        </mat-form-field>
-      </form>
+        </mat-form-field> -->
 
-      <button mat-icon-button color="primary" aria-label="Add new category">
-        <mat-icon>add</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        color="primary"
-        aria-label="Example icon button with a menu icon"
-      >
-        <mat-icon>menu</mat-icon>
-      </button>
+        <button mat-icon-button color="primary" aria-label="Add new category">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Example icon button with a menu icon"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+      </form>
     </div>
   </div>
 </section>
@@ -64,10 +69,12 @@
   </mat-list-item>
 </mat-list>
 
-<mat-paginator  [length]="length"
-                [pageIndex]="pageIndex"
-                [pageSize]="pageSize"
-                [pageSizeOptions]="[5, 10, 25, 100]"
-                (page)="pageEvent = getCategoriesPerPage($event)"
-                aria-label="Select page">
+<mat-paginator
+  [length]="length"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[30, 50, 100]"
+  (page)="pageEvent = getCategoriesPerPage($event)"
+  aria-label="Select page"
+>
 </mat-paginator>
