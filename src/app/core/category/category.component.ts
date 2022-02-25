@@ -30,6 +30,9 @@ import { timer } from "rxjs";
   styleUrls: ["./category.component.css"],
 })
 export class CategoryComponent implements OnInit {
+  readonly initialPageSize: number = 30;
+  readonly maxPageSize: number = 300;
+
   categoryID: number;
   name: string;
   description: string;
@@ -40,15 +43,10 @@ export class CategoryComponent implements OnInit {
   createdCategory: Category;
 
   categories: Category[];
-  
   fullCategoriesList: Category[];
-  filteredCategories: Category[];
   inPageCategories: Category[];
 
   search = new FormControl("");
-  searchOptions: string[];
-  searchOptionsFull: string[];
-
   formGroup: FormGroup;
 
   //Paginator
@@ -76,8 +74,6 @@ export class CategoryComponent implements OnInit {
       category: [""],
     });
     this.formGroup.get("category").valueChanges.subscribe((response) => {
-      this.filteredOptions(response);
-
       if (!!response) {
         this.categories = this.fullCategoriesList.filter((category) => {
           return (
@@ -87,12 +83,6 @@ export class CategoryComponent implements OnInit {
       } else {
         this.categories = this.inPageCategories;
       }
-    });
-  }
-
-  filteredOptions(enteredData) {
-    this.searchOptions = this.searchOptionsFull.filter((item) => {
-      return item.toLowerCase().indexOf(enteredData.toLowerCase()) > -1;
     });
   }
 
@@ -120,11 +110,10 @@ export class CategoryComponent implements OnInit {
 
       var ret = this.categoryService
         .addCategory(this.newCategory)
-        .subscribe((result) => (this.createdCategory = result));
-
-      timer(100000);
-
-      this.getCategories();
+        .subscribe((result) => {
+          this.fullCategoriesList.push(result);
+          this.categories = [result];
+        });
     });
   }
 
@@ -167,21 +156,19 @@ export class CategoryComponent implements OnInit {
 
   getCategories(): void {
     this.categoryService
-      .getCategories("name", 30, 1)
+      .getCategories("name", this.maxPageSize, null)
       .subscribe((categories) => {
-        this.categories = categories.items;
-        this.inPageCategories = this.categories;
-        
         this.fullCategoriesList = categories.items;
-
-        this.searchOptionsFull = categories.items.map((item) => item["name"]);
-
+        this.categories = this.fullCategoriesList.slice(
+          0,
+          this.initialPageSize
+        );
+        this.inPageCategories = this.categories;
         this.length = categories.totalItems;
       });
   }
 
   getCategoriesPerPage(event?: PageEvent) {
-    
     this.categoryService
       .getCategories("name", event.pageSize, event.pageIndex + 1)
       .subscribe(
@@ -191,7 +178,7 @@ export class CategoryComponent implements OnInit {
           } else {
             this.categories = response.items;
             this.inPageCategories = response.items;
-            
+
             //this.pageIndex = event.pageIndex;
             this.pageSize = event.pageSize;
             this.length = response.totalItems;

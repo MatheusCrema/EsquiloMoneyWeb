@@ -20,8 +20,8 @@ const httpOptions = {
   providedIn: "root",
 })
 export class CategoryService {
-  categoriesURLBase = environment.apiUrl + "categories?";
-  categoriesURL = environment.apiUrl + "categories?";
+  categoriesURLBase = environment.apiUrl + "categories";
+  categoriesURL = environment.apiUrl + "categories";
   categoriesGet = environment.apiUrl + "categories?itemsPerPage=30&SortBy=name";
 
   categoryResult: CategoryResult;
@@ -60,7 +60,7 @@ export class CategoryService {
 
     var resp = this.http
       .patch(
-        this.categoriesURL.concat("/", category.categoryID?.toString()),
+        this.categoriesURLBase.concat("/", category.categoryID?.toString()),
         body,
         { headers: headers }
       )
@@ -81,7 +81,9 @@ export class CategoryService {
   }
 
   deleteCategory(categoryID: number): Observable<any> {
-    var url = this.categoriesURL.concat("/", categoryID.toString());
+    var url = this.categoriesURLBase.concat("/", categoryID.toString());
+
+    console.log(">>>>> delete url:  ", url);
 
     var resp = this.http.delete(url).pipe(
       catchError((err) => {
@@ -99,35 +101,23 @@ export class CategoryService {
     itemsPerPage?: number,
     page?: number
   ): Observable<any> {
-    
-    console.log("======================= sort: ", sort);
-    console.log("======================= itemsPerPage: ", itemsPerPage);
-    console.log("======================= page: ", page);
-
-    this.categoriesURL = this.categoriesURLBase;
+    this.categoriesURL = this.categoriesURLBase.concat("?");
 
     if (itemsPerPage || page || sort) {
       if (itemsPerPage) {
         this.categoriesURL += "itemsPerPage=" + itemsPerPage;
-        console.log("======================= if (itemsPerPage): ", this.categoriesURL);
       }
 
       if (page) {
         this.categoriesURL += "&page=" + page;
-        console.log("======================= if (page): ", this.categoriesURL);
       }
 
       if (sort) {
         this.categoriesURL += "&sort=" + sort;
-        console.log("======================= if (sort): ", this.categoriesURL);
       }
     } else {
       this.categoriesURL = this.categoriesGet;
-      console.log("======================= if (else): ", this.categoriesURL);
     }
-
-    console.log("======================= this.categoriesURL: ", this.categoriesURL);
-
 
     return this.http.get<any>(this.categoriesURL);
   }
