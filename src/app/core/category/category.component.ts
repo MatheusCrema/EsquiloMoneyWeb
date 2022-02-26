@@ -146,7 +146,7 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(categoryID: number): void {
-    this.categoryService.deleteCategory(categoryID);
+    this.categoryService.deleteCategory(categoryID).subscribe();
 
     //exclude delete record
     this.categories = this.categories.filter(
@@ -158,7 +158,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService
       .getCategories("name", this.maxPageSize, null)
       .subscribe((categories) => {
-        this.fullCategoriesList = categories.items;
+        this.fullCategoriesList = categories.items.sort( (a, b) => (a.name < b.name) ? -1 : 1);
         this.categories = this.fullCategoriesList.slice(
           0,
           this.initialPageSize

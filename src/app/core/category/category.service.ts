@@ -85,15 +85,17 @@ export class CategoryService {
 
     console.log(">>>>> delete url:  ", url);
 
-    var resp = this.http.delete(url).pipe(
-      catchError((err) => {
-        //Handle the error here
+    // var resp = this.http.delete(url).pipe(
+    //   catchError((err) => {
+    //     //Handle the error here
 
-        return throwError(err); //Rethrow it back to component
-      })
-    );
-    console.log(">>>>> delete service response:  " + resp);
-    return resp;
+    //     return throwError(err); //Rethrow it back to component
+    //   })
+    // );
+    // console.log(">>>>> delete service response:  " + resp);
+    // return resp;
+
+    return this.http.delete(url);
   }
 
   getCategories(
