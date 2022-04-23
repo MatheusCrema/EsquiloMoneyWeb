@@ -10,7 +10,7 @@
           <input formControlName="category" matInput />
         </mat-form-field>
 
-        <button mat-icon-button color="primary" aria-label="Add new category" (click)="addCategory()">
+        <button mat-icon-button color="primary" aria-label="Add new category" (click)="addCategory(categoryGroups)">
           <mat-icon>add</mat-icon>
         </button>
         <button
@@ -30,7 +30,7 @@
 <mat-list>
   <mat-divider></mat-divider>
   <mat-list-item *ngFor="let category of categories">
-    <div mat-line><b>{{category.name}}</b>{{ category.hierarchy == 0 ? ' (main)' : ' (subcategory of level ' + category.hierarchy + ')'}} </div>
+    <div mat-line><b>{{category.name}}</b>{{ category.hierarchy == 0 ? ' (main)' : ' [level ' + category.hierarchy + ']'}} </div>
     <div mat-line>{{ category.description }}</div>
     <div style="margin-right: 1%">
       <button mat-mini-fab color="disabled" (click)="editCategory(category)">

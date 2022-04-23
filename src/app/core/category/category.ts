@@ -21,7 +21,8 @@ export interface Category {
     iconUI?: string;
     createdDT?: Date;
 
-    categoryParentID?: number;    
+    categoryParentID?: number;
+    categories?: Category[];
     categoryBalances?: CategoryBalance[];
 }
 
@@ -29,9 +30,3 @@ export interface CategoryResult {
     totalItems: number;
     items: Category[];
 }
-
-export interface dataJarbas {
-    name: string;
-    description: string;
-    hierarchy: number;
-  }

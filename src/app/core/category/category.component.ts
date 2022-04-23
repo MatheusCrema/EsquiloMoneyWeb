@@ -42,6 +42,7 @@ export class CategoryComponent implements OnInit {
   newCategory: Category;
   createdCategory: Category;
 
+  categoryGroups: Category[];
   categories: Category[];
   fullCategoriesList: Category[];
   inPageCategories: Category[];
@@ -71,7 +72,7 @@ export class CategoryComponent implements OnInit {
 
   initForm() {
     this.formGroup = this.fb.group({
-      category: [""],
+      category: [""]
     });
     this.formGroup.get("category").valueChanges.subscribe((response) => {
       if (!!response) {
@@ -86,7 +87,12 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  addCategory(): void {
+  addCategory(categoryGroup: Category[]): void {
+    console.log(
+      "===========================>>>> before GenerateNestedCategories"
+    );
+    this.GenerateNestedCategories(this.fullCategoriesList);
+
     const dialogRef = this.dialog.open(CategoryDialogComponent, {
       height: "450px",
       width: "480px",
@@ -95,6 +101,7 @@ export class CategoryComponent implements OnInit {
         name: this.name,
         description: this.description,
         hierarchy: this.hierarchy,
+        categoryGroups: categoryGroup,
       },
     });
 
@@ -107,6 +114,7 @@ export class CategoryComponent implements OnInit {
         categoryParentID: null,
         createdDT: new Date(),
       };
+      console.log("============> ENTREI");
 
       var ret = this.categoryService
         .addCategory(this.newCategory)
@@ -154,11 +162,57 @@ export class CategoryComponent implements OnInit {
     );
   }
 
+  GenerateNestedCategories(categoryList: Category[]): void {
+    console.log(
+      "===========================>>>> categoryList.length: ",
+      categoryList.length
+    );
+    var subcategories = categoryList.filter((item) => item.categoryParentID); //!!item.categoryParentID); //item.categoryParentID !== null
+    console.log(
+      "===========================>>>> subcategories.length: ",
+      subcategories.length
+    );
+
+    subcategories.forEach((subCategory) => {
+      //console.log("================> subcategories.forEach. ID ",subCategory.categoryID, " -- name: ",subCategory.name);
+      var parentCategory = categoryList.find(
+        (item) => item.categoryID == subCategory.categoryParentID
+      );
+
+      if (parentCategory) {
+        console.log("================> parentCategory: ", parentCategory.name);
+        console.log("================> subCategory: ", subCategory.name);
+
+        if (parentCategory.categories == null) {
+          parentCategory.categories = [];
+        }
+        console.log("================> parentCategory.categories: ",parentCategory.categories.length);
+
+        parentCategory.categories.push(subCategory);
+        categoryList.map((item) =>
+          item.categoryID !== parentCategory.categoryID ? item : parentCategory
+        );
+      }
+    });
+
+    categoryList.forEach((category) => {
+      if (category.categories && category.categories.length) {
+        category.categories.forEach((subCategory) => {
+          console.log("================>>> Category: ",category.name," /// subCategory: ",subCategory.name);
+        });
+      }
+    });
+
+    this.categoryGroups = categoryList;
+  }
+
   getCategories(): void {
     this.categoryService
       .getCategories("name", this.maxPageSize, null)
       .subscribe((categories) => {
-        this.fullCategoriesList = categories.items.sort( (a, b) => (a.name < b.name) ? -1 : 1);
+        this.fullCategoriesList = categories.items.sort((a, b) =>
+          a.name < b.name ? -1 : 1
+        );
         this.categories = this.fullCategoriesList.slice(
           0,
           this.initialPageSize

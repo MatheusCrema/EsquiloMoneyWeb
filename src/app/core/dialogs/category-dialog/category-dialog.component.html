@@ -20,10 +20,54 @@
         </mat-form-field>
     </div>
     <div mat-dialog-content>
-        <mat-form-field class="example-full-width">
+        <!-- <mat-form-field class="example-full-width">
             <mat-label>Hierarchy</mat-label>
             <input name="hierarchy" matInput [(ngModel)]="category.hierarchy">
-        </mat-form-field>
+        </mat-form-field> -->
+
+        
+        <!-- HARD GROUP STUFF -->
+        <!-- <form [formGroup]="categoryParentForm">
+            <mat-form-field appearance="fill">
+              <mat-label>Base category</mat-label>
+              <input type="text"
+                     matInput
+                     formControlName="categoryGroup"
+                     required
+                     [matAutocomplete]="autoGroup">
+                <mat-autocomplete #autoGroup="matAutocomplete">
+                  <mat-optgroup *ngFor="let category of categoryOptions | async" [label]="any">
+                    {{category.name}}
+                    <mat-option *ngFor="let subcategory of category.categories" [value]="subcategory.name">
+                      {{subcategory.name}}
+                    </mat-option>
+                </mat-optgroup>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form> -->
+    
+    
+    
+          <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Hierarchy</mat-label>
+              <input type="text"
+                     placeholder="Pick one"
+                     aria-label="Number"
+                     matInput
+                     [formControl]="myControl"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+
+
+
+    
     </div>
 </form>
 
