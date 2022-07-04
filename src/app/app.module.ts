@@ -26,6 +26,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NgModule } from '@angular/core';
@@ -34,13 +35,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { TestComponent } from './shared/test/test.component';
 import { ProfileComponent } from './core/profile/profile.component';
 import { ProfileCardComponent } from './core/profile/profile-card/profile-card.component';
+import { TransactionComponent } from './core/transaction/transaction.component';
+import { PaymentTypeComponent } from './core/payment-type/payment-type.component';
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'category', component: CategoryComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent },
+  { path: 'transaction', component: TransactionComponent }
 ];
 
 
@@ -57,7 +61,9 @@ const appRoutes: Routes = [
     MainNavComponent,
     ProfileComponent,
     ProfileCardComponent,
-    TestComponent
+    TestComponent,
+    TransactionComponent,
+    PaymentTypeComponent
     ],
   imports: [
     RouterModule.forRoot(
@@ -82,6 +88,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatPaginatorModule,
     MatSidenavModule,
+    MatTableModule,
     MatToolbarModule,
     
     ReactiveFormsModule
