@@ -14,7 +14,7 @@ export interface Transaction {
   
   // account: Account;
   
-  // category: Category;
+  category: Category;
   
-  // paymentType: PaymentType;
+  //paymentType: PaymentType;
 }

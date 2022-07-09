@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-
+import { AfterViewInit, Component,  OnInit, ViewChild} from "@angular/core";
+import {MatPaginator} from '@angular/material/paginator';
+//import {MatSort} from '@angular/material/sort';
 
 import { Transaction } from "./transaction";
 import { TransactionService } from "./transaction.service";
@@ -11,7 +12,9 @@ import { TransactionService } from "./transaction.service";
 })
 export class TransactionComponent implements OnInit {
   transactions: Transaction[];
-  displayedColumns: string[] = ["date", "name", "value", "comment"];
+  displayedColumns: string[] = ["date", "category", "name", "type", "value", "comment"];
+
+  //@ViewChild(MatSort) sort: MatSort;
 
   constructor(private transactionsService: TransactionService) {}
 
@@ -22,9 +25,6 @@ export class TransactionComponent implements OnInit {
   getTransactions(): void {
     this.transactionsService.getTransactions().subscribe((data) => {
       this.transactions = data.items;
-      console.log(">>>>>> data: " + data.items.length);
-      console.log(">>>>>> data: " + data.items[0].name);
-      console.log(">>>>>>>>>>>> why >> " + this.transactions[0].name);
     });
   }
 }

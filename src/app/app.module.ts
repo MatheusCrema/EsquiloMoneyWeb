@@ -26,6 +26,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
+//import { MatSort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -88,6 +89,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatPaginatorModule,
     MatSidenavModule,
+    //MatSort,
     MatTableModule,
     MatToolbarModule,
     

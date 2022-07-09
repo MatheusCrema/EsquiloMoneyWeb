@@ -19,7 +19,8 @@ const httpOptions = {
   providedIn: "root",
 })
 export class TransactionService {
-  transactionsURLBase = environment.apiUrl + "transactions/";
+  itemsPerPage = 50;
+  transactionsURLBase = environment.apiUrl + "transactions" + "?ItemsPerPage=" + this.itemsPerPage;
 
   constructor(private http: HttpClient) {}
 
